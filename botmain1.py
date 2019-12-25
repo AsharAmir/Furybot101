@@ -56,7 +56,7 @@ async def on_ready():
 
 #playing audio in a voice channel
 
-discord.opus.load_opus()
+
 @bot.command(pass_context=True)
 async def join(ctx):
     global voice
