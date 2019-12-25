@@ -1,6 +1,6 @@
 import discord
 import asyncio
-import op
+import opuslib
 
 
 import random
