@@ -24,7 +24,7 @@ import os
 from itertools import cycle
 
 
-TOKEN = 'os.environ['DISCORDTOKEN']'
+TOKEN = 'NjQzMzI4MDcyNjIzNDU2Mjc2.Xc1VaQ.VV5KhYhUNCOiA-e57GaXMtRfJb0]'
 BOT_PREFIX = '`'
 
 
