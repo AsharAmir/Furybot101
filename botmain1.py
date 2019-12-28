@@ -25,7 +25,7 @@ from itertools import cycle
 
 
 TOKEN = 'NjQzMzI4MDcyNjIzNDU2Mjc2.XgNa7Q.eO8zEl37Vz8KE22JJTrwCVdjQ04'
-BOT_PREFIX = '`'
+BOT_PREFIX = ''
 
 
 bot = commands.Bot(command_prefix=BOT_PREFIX)
@@ -49,7 +49,7 @@ async def on_ready():
     replit.clear()
     print(f'Logged in as {bot.user.name} - {bot.user.id}')
     bot.remove_command('help')
-    await bot.change_presence(status=discord.Status.idle, activity=discord.Game("with kittens 3>"))
+    await bot.change_presence(status=discord.Status.idle, activity=discord.Game("with kittens 3> | dm Hi"))
 
 
 
