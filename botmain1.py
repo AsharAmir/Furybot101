@@ -152,7 +152,7 @@ async def Hi(ctx):
 @bot.command()
 async def m8b(ctx):
     await ctx.send(random.choice(["It is certain :8ball:",
-                                  "It is decidedly so :8ball:",
+                                  "It is definetly so :8ball:",
                                   "Without a doubt :8ball:",
                                   "Yes, definitely :8ball:",
                                   "ahan, as far as i think so, no :8ball:",
@@ -160,16 +160,25 @@ async def m8b(ctx):
                                   "yeah it sounds so :8ball:",
                                   "Yes :8ball:",
                                   "Signs point to yes :8ball:",
-                                  "Reply hazy try again :8ball:",
+                                  "its a 100% no:8ball:",
                                   "Ask again later :8ball:",
                                   "Better not tell you now :8ball:",
-                                  "Cannot predict now :8ball:",
-                                  "Concentrate and ask again :8ball:",
+                                  "its a 100% yes :8ball:",
+                                  "dont mind if i say no :8ball:",
                                   "eh im not sure:8ball:",
                                   "My reply is no :8ball:",
                                   "My sources say no :8ball:",
                                   "ahan, well, dont mind if i say yes :8ball:",
                                   "Very doubtful :8ball:"]))
+    
+@bot.command()
+async def rolladice(ctx):
+  await ctx.send(random.choice(["1", "2", "3", "4", "5", "6")] 
+                              
+@bot.command()
+async def ok(ctx):
+  await ctx.send('boomer')
+   
 
 
 @bot.command()
