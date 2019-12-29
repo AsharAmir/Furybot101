@@ -172,7 +172,7 @@ async def m8b(ctx):
                                   "Very doubtful :8ball:"]))
     
 @bot.command()
-async def rolladice(ctx):
+async def roll(ctx):
     await ctx.send(random.choice(["1", "2", "3", "4", "5", "6"])) 
                               
 @bot.command()
