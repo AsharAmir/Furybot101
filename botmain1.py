@@ -24,8 +24,7 @@ import os
 from itertools import cycle
 
 
-TOKEN = 'NjQzMzI4MDcyNjIzNDU2Mjc2.XguZGA.WkbmdCN33T2asrV99vf5dUh23_Y
-4'
+TOKEN = 'NjQzMzI4MDcyNjIzNDU2Mjc2.XguZGA.WkbmdCN33T2asrV99vf5dUh23_Y'
 BOT_PREFIX = ''
 
 
