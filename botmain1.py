@@ -1,12 +1,10 @@
 import discord
 import asyncio
-import opuslib
 
 
 import random
 import datetime
 import asyncio
-
 
 from discord.ext import commands
 from discord.utils import get
@@ -23,26 +21,17 @@ import os
 
 from itertools import cycle
 
-
 TOKEN = 'NjQzMzI4MDcyNjIzNDU2Mjc2.XguZGA.WkbmdCN33T2asrV99vf5dUh23_Y'
 BOT_PREFIX = ''
-
 
 bot = commands.Bot(command_prefix=BOT_PREFIX)
 
 
-
-
-
-
-
-
-
 @bot.event
 async def on_ready():
+    print('Logging in...')
+    print('Logged in as ' + bot.user.name + '\n')
 
-  print ('Logging in...')
-  print ('Logged in as ' + bot.user.name + '\n')
 
 @bot.event
 async def on_ready():
@@ -52,9 +41,7 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game("with kittens 3> | dm Hi"))
 
 
-
-
-#playing audio in a voice channel
+# playing audio in a voice channel
 
 
 @bot.command(pass_context=True)
@@ -78,6 +65,7 @@ async def join(ctx):
 
     await ctx.send(f"Joined {channel} :white_check_mark: ")
 
+
 @bot.command(pass_context=True)
 async def leave(ctx):
     channel = ctx.message.author.voice.channel
@@ -89,6 +77,7 @@ async def leave(ctx):
         await ctx.send(f"Left {channel} :white_check_mark: ")
     else:
         print("")
+
 
 @bot.command(pass_context=True)
 async def play(ctx, url: str):
@@ -115,16 +104,16 @@ async def play(ctx, url: str):
     }
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        print ('Downloading audio now!\n')
+        print('Downloading audio now!\n')
         ydl.download([url])
 
     for file in os.listdir("./"):
         if file.endswith('.mp3'):
             name = file
-            print (f"Renamed Files: {file}\n")
+            print(f"Renamed Files: {file}\n")
             os.rename(file, 'song.mp3')
 
-    voice.play(discord.FFmpegPCMAudio('song.mp3'), after=lambda e: print (f"{name} has finished playing!"))
+    voice.play(discord.FFmpegPCMAudio('song.mp3'), after=lambda e: print(f"{name} has finished playing!"))
     voice.source = discord.PCMVolumeTransformer(voice.source)
     voice.source.volume = 1
 
@@ -132,7 +121,8 @@ async def play(ctx, url: str):
     await ctx.send(f"Playing: {nname}")
     print('Playing!\n')
 
-#other commands
+
+# other commands
 
 @bot.event
 async def on_message_delete(message):
@@ -170,15 +160,16 @@ async def m8b(ctx):
                                   "My sources say no :8ball:",
                                   "ahan, well, dont mind if i say yes :8ball:",
                                   "Very doubtful :8ball:"]))
-    
+
+
 @bot.command()
 async def roll(ctx):
-    await ctx.send(random.choice(["1", "2", "3", "4", "5", "6"])) 
-                              
+    await ctx.send(random.choice(["1", "2", "3", "4", "5", "6"]))
+
+
 @bot.command()
 async def ok(ctx):
     await ctx.send('boomer')
-   
 
 
 @bot.command()
@@ -273,16 +264,74 @@ async def coinflip(ctx):
     ranchoice = random.choice(choices)
     await ctx.send(ranchoice)
 
-#sending dm's to users
+
+# sending dm's to users
 @bot.command()
 async def dm(ctx):
     await ctx.author.send('Hey!')
 
 
-#sending dm's pt 2
+# sending dm's pt 2
 @bot.command()
 async def senddm(ctx, member: discord.Member, *, content):
     channel = await member.create_dm()
     await channel.send(content)
+
+#moderation
+
+@bot.command()
+@commands.has_permissions(kick_members=True)
+async def kick(ctx, member: discord.Member, *, reason = "Yeeting"):
+    await member.kick(reason=reason)
+    await ctx.send(f"{member.mention} was kicked by {ctx.author.mention}. for [{reason}]")
+
+@bot.command()
+@commands.has_permissions(ban_members=True)
+async def ban(ctx, member : discord.Member, *, reason = "Yeeting"):
+    await member.ban(reason=reason)
+    await ctx.send(f"{member.mention} was banned by {ctx.author.mention}. for [{reason}]")
+
+@bot.command()
+@commands.has_permissions(manage_messages=True)
+async def clear(ctx, amount: int):
+    await ctx.channel.purge(limit=amount +1)
+    await ctx.send(f"{amount} message/messages got deleted")
+
+@bot.command()
+async def mute(ctx, member : discord.Member):
+    guild = ctx.guild
+
+    for role in guild.roles:
+        if role.name == 'Muted':
+            await member.add_roles(role)
+            await ctx.send("{} has {} has been muted" .format(member.mention,ctx.author.mention))
+            return
+
+        overwrite = discord.PermissionOverwrite(send_messages=False)
+        newRole = await guild.create_role(name="Muted")
+
+        for channel in guild.text_channels:
+            await channel.set_permissions(newRole,overwrite=overwrite)
+
+
+        await member.add_roles(newRole)
+        await ctx.send("{} has {} has been muted" .format(member.mention,ctx.author.mention))
+
+
+@bot.command()
+async def unmute(ctx, member : discord.Member):
+    guild = ctx.guild
+
+    for role in guild.roles:
+        if role.name == "Muted":
+            await member.remove_roles(role)
+            await ctx.send("{} has {} has been unmuted" .format(member.mention,ctx.author.mention))
+            return
+
+
+
+
+
+
 
 bot.run(TOKEN)
