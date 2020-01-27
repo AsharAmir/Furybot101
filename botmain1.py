@@ -1,36 +1,25 @@
-import discord
-import asyncio
-
-
-import random
-import datetime
-import asyncio
-
-from discord.ext import commands
-from discord.utils import get
-import youtube_dl
-import ffmpeg
-
-import random
-import datetime
-import asyncio
-
 import replit
 
-import os
+import discord
+from discord.ext import commands
 
-from itertools import cycle
+TOKEN = 'NjY4MTYxOTU0NjIzNTIwNzc5.XiNRLw.eKBYzojnK1sawoLZPfBkz5UJN7Y'
 
-TOKEN = 'NjQzMzI4MDcyNjIzNDU2Mjc2.XguZGA.WkbmdCN33T2asrV99vf5dUh23_Y'
 BOT_PREFIX = ''
 
-bot = commands.Bot(command_prefix=BOT_PREFIX)
+bot = commands.Bot(command_prefix=BOT_PREFIX, case_insensitive=True)
 
 
 @bot.event
 async def on_ready():
-    print('Logging in...')
-    print('Logged in as ' + bot.user.name + '\n')
+    print('Logged in as ZN BOT')
+
+
+@bot.command()
+@commands.has_any_role(618484528910041123, 513751591208091688, 530968077001687041, 572709257036955649)
+async def senddm(ctx, member: discord.Member, *, content):
+    channel = await member.create_dm()
+    await channel.send(content)
 
 
 @bot.event
@@ -38,204 +27,308 @@ async def on_ready():
     replit.clear()
     print(f'Logged in as {bot.user.name} - {bot.user.id}')
     bot.remove_command('help')
-    await bot.change_presence(status=discord.Status.idle, activity=discord.Game("with kittens 3> | dm Hi"))
+    await bot.change_presence(status=discord.Status.do_not_disturb, activity=discord.Game("cuz i get tired too."))
 
-
-# playing audio in a voice channel
-
-
-@bot.command(pass_context=True)
-async def join(ctx):
-    global voice
-    channel = ctx.message.author.voice.channel
-    voice = get(bot.voice_clients, guild=ctx.guild)
-
-    if voice and voice.is_connected():
-        await voice.move_to(channel)
-    else:
-        voice = await channel.connect()
-
-    await voice.disconnect()
-
-    if voice and voice.is_connected():
-        await voice.move_to(channel)
-    else:
-        voice = await channel.connect()
-        print(f"The bot is connected to the {channel} ")
-
-    await ctx.send(f"Joined {channel} :white_check_mark: ")
-
-
-@bot.command(pass_context=True)
-async def leave(ctx):
-    channel = ctx.message.author.voice.channel
-    voice = get(bot.voice_clients, guild=ctx.guild)
-
-    if voice and voice.is_connected():
-        await voice.disconnect()
-        print(f"The bot has left{channel}")
-        await ctx.send(f"Left {channel} :white_check_mark: ")
-    else:
-        print("")
-
-
-@bot.command(pass_context=True)
-async def play(ctx, url: str):
-    song_there = os.path.isfile('song.mp3')
-    try:
-        if song_there:
-            os.remove('song.mp3')
-            print('Removed old song file!')
-    except PermissionError:
-        print('Trying to delete song file but its being played.')
-        await ctx.send('ERROR: music playing...')
-        return
-    await ctx.send('Getting everything ready now!')
-
-    voice = get(bot.voice_clients, guild=ctx.guild)
-
-    ydl_opts = {
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-    }
-
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        print('Downloading audio now!\n')
-        ydl.download([url])
-
-    for file in os.listdir("./"):
-        if file.endswith('.mp3'):
-            name = file
-            print(f"Renamed Files: {file}\n")
-            os.rename(file, 'song.mp3')
-
-    voice.play(discord.FFmpegPCMAudio('song.mp3'), after=lambda e: print(f"{name} has finished playing!"))
-    voice.source = discord.PCMVolumeTransformer(voice.source)
-    voice.source.volume = 1
-
-    nname = name.rsplit('-', 2)
-    await ctx.send(f"Playing: {nname}")
-    print('Playing!\n')
-
-
-# other commands
-
-@bot.event
-async def on_message_delete(message):
-    await message.channel.send('There was a message deleted here, haha caught ya!')
-
-
+#allrules
 @bot.command()
-async def jt(ctx):
-    await ctx.send('all hail sena!')
+async def znrules(ctx):
+    embed = discord.Embed(color=0xff0000)
+    embed.set_author(name="ZNotes Discord Community Rules",
+                     url="https://znotes.org", icon_url = "https://znotes.org/icons/znotes-large-1.png")
+    embed.set_thumbnail(url="https://znotes.org/icons/znotes-large-1.png")
+    embed.add_field(name="Rule 1",
+                    value="Be respectful. Please remember that everyone else here is human (though we do have a few bots, Im one too :D)",
+                    inline=False)
+    embed.add_field(name="Follow Discords Terms of Service AND Community guidelines: ",
+                    value=" https://discordapp.com/terms, https://discordapp.com/guidelines",
+                    inline=False)
+    embed.add_field(name="Rule 2",
+                    value="Any form of discrimination, academic dishonesty and offensive jokes involving race, religion and/or ethnicity, gender, and sexuality are prohibited.",
+                    inline=False)
+    embed.add_field(name="Rule 3", value="Use proper grammar and spelling.",
+                    inline=False)
+    embed.add_field(name="Rule 4",
+                    value="Speaking in languages other than English are only allowed in language subject channels.",
+                    inline=False)
+    embed.add_field(name="Rule 5",
+                    value="**Read the channel topics and descriptions before sending anything:** Post content in the correct channels and don’t go offtopic. IGCSE, AS, A2 and IB subjects all have their own respective channels.",
+                    inline=False)
+    embed.add_field(name="Rule 6",
+                    value="NSFW content/discussion and excessive usage of inappropriate language are prohibited. Any moderator decisions will be made purely out of context, on a case by case basis, and as such there is no blacklist of words. If there is you have any problem with the moderator's discretion, notify a ZNotes Team Member",
+                    inline=False)
+    embed.add_field(name="Rule 7",
+                    value="Mentioning the moderators or a specific person without proper reason is prohibited.",
+                    inline=False)
+    embed.add_field(name="Rule 8", value="Don't post someone's personal information without their permission.",
+                    inline=False)
+    embed.add_field(name="Rule 9",
+                    value="Joining the server with the intent to cause harm (EX: Causing drama, being toxic to others, raiding, advertising, etc..) Will result in serious actions. We do NOT allow people to harm or harass our members here, and we do not allow people join to cause drama.",
+                    inline=False)
+    embed.add_field(name="Rule 10",
+                    value="**No provocation:** such as instigating others to violate the rules, deliberately making members/staff angry, or being toxic.",
+                    inline=False)
+    embed.add_field(name="Rule 11",
+                    value="**Publicly criticising, starting debates over, or commenting on a moderator’s actions:** If you have issues with any of the mods/staff members in the server please DM one of the mods directly. Criticising it in the server causes drama; breaking this rule will result in mutes/bans.",
+                    inline=False)
+    embed.add_field(name="Rule 12",
+                    value="**No flooding, spamming or raiding:** Flooding can refer to all of these things: typing irrelevant or repeated messages, using caps, emoticons, etc. Remember that raiding is against Discord TOS. Discussion of raiding another server is punishable.",
+                    inline=False)
+    embed.add_field(name="Rule 13",
+                    value="**No bypassing either punishments or rules:** for example, leaving and rejoining to escape a mute or saying that you were not being toxic, but rather just having some 'fun' will result in heavier punishments than originally.",
+                    inline=False)
+    embed.add_field(name="Rule 14",
+                    value="Profile pictures used must be appropriate. Nicknames that are inappropriate or use unusual or unreadable Unicode are prohibited.",
+                    inline=False)
+    embed.add_field(name="Rule 15",
+                    value="Sending any harmful material such as viruses, IP grabbers or malware results in an immediate and permanent ban.",
+                    inline=False)
+    embed.add_field(
+        name="TL;DR",
+        value='In conclusion, this community is designed to help YOU and your future education. It is a safe space for everyone to ask and learn together. Every user and their questions will be respected. Let\'s make the best use of the great intellect and experiences we all bring to the table!',
+        inline=False)
+
+    await ctx.send(embed=embed)
 
 
+
+
+
+# rules
 @bot.command()
-async def Hi(ctx):
-    await ctx.send('Haaaai!!! How are you doing?')
-
-
-@bot.command()
-async def m8b(ctx):
-    await ctx.send(random.choice(["It is certain :8ball:",
-                                  "It is definetly so :8ball:",
-                                  "Without a doubt :8ball:",
-                                  "Yes, definitely :8ball:",
-                                  "ahan, as far as i think so, no :8ball:",
-                                  "Most likely :8ball:",
-                                  "yeah it sounds so :8ball:",
-                                  "Yes :8ball:",
-                                  "Signs point to yes :8ball:",
-                                  "its a 100% no:8ball:",
-                                  "Ask again later :8ball:",
-                                  "Better not tell you now :8ball:",
-                                  "its a 100% yes :8ball:",
-                                  "dont mind if i say no :8ball:",
-                                  "eh im not sure:8ball:",
-                                  "My reply is no :8ball:",
-                                  "My sources say no :8ball:",
-                                  "ahan, well, dont mind if i say yes :8ball:",
-                                  "Very doubtful :8ball:"]))
-
-
-@bot.command()
-async def roll(ctx):
-    await ctx.send(random.choice(["1", "2", "3", "4", "5", "6"]))
-
-
-@bot.command()
-async def ok(ctx):
-    await ctx.send('boomer')
-
-
-@bot.command()
-async def maddi(ctx):
-    await ctx.send('all hail kashif!')
-
-
-@bot.command()
-async def f(ctx):
-    await ctx.send('F')
-
-
-@bot.command()
-async def oi(ctx):
-    await ctx.send('Oye!!')
-
-
-@bot.command()
-async def yeet(ctx):
-    await ctx.send('yeetus feetus deletus!')
-
-
-@bot.command()
-async def hey(ctx):
-    await ctx.send('hello!')
-
-
-@bot.command()
-async def mahad(ctx):
-    await ctx.send('the greatest washing machine')
-
-
-@bot.command()
-async def ashhar(ctx):
-    await ctx.send('our master!')
-
-
-@bot.command()
-async def usama(ctx):
-    await ctx.send('aapki uber aagaye hai!')
-
-
-@bot.command()
-async def WAHT(ctx):
-    await ctx.send('silence, ashar is sleeping.. zzzz!')
-
-
-@bot.command()
-async def HULLOO(ctx):
-    await ctx.send('HAAAAAAAAAI')
-
-
-@bot.command(aliases=["repeat"])
-async def echo(ctx, *, words):
-    await ctx.send(words)
-
-
-@bot.command()
-async def testembed(ctx):
-    embed = discord.Embed(title='Title', descrpition='description', colour=discord.Color.red(),
-                          url="https://www.google.com")
+async def zn1(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 1** : Be respectful. Please remember that everyone else here is human "
+                                      "(though we do have a few bots, Im one too :D) ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
     await ctx.send(embed=embed)
 
 
 @bot.command()
-async def userinfo(ctx, member: discord.Member):
+async def zn2(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 2 ** : Any form of discrimination, academic dishonesty and offensive jokes involving race, religion and/or ethnicity, gender, and sexuality are prohibited. ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn3(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 3** : Use proper grammar and spelling. ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn4(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 4** : Speaking in languages other than English are only allowed in language subject channels. ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn5(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 5** : Read the channel topics and descriptions before sending anything: Post content in the correct channels and don’t go offtopic. IGCSE, AS, A2 and IB subjects all have their own respective channels. ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn6(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 6** : NSFW content/discussion and excessive usage of inappropriate language are prohibited. Any moderator decisions will be made purely out of context, on a case by case basis, and as such there is no blacklist of words. If there is you have any problem with the moderator\'s discretion, notify a ZNotes Team Member. ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn7(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 7** : Mentioning the moderators or a specific person without proper reason is prohibited. ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn8(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 8** : Don\'t someone\'s personal information without their permission. ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn9(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 9** : Joining the server with the intent to cause harm (EX: Causing drama, being toxic to others, raiding, advertising, etc..) Will result in serious actions. We do NOT allow people to harm or harass our members here, and we do not allow people join to cause drama.** :  ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn10(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 10** : No provocation: such as instigating others to violate the rules, deliberately making members/staff angry, or being toxic. ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn11(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 11** : Publicly criticising, starting debates over, or commenting on a moderator’s actions: If you have issues with any of the mods/staff members in the server please DM one of the mods directly. Criticising it in the server causes drama; breaking this rule will result in mutes/bans ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn12(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 12** : No flooding, spamming or raiding: Flooding can refer to all of these things: typing irrelevant or repeated messages, using caps, emoticons, etc. Remember that raiding is against Discord TOS. Discussion of raiding another server is punishable ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn13(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 13** : No flooding, spamming or raiding: Flooding can refer to all of these things: typing irrelevant or repeated messages, using caps, emoticons, etc. Remember that raiding is against Discord TOS. Discussion of raiding another server is punishable ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn14(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 14** : Profile pictures used must be appropriate. Nicknames that are inappropriate or use unusual or unreadable Unicode are prohibited. ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def zn15(ctx):
+    embed = discord.Embed(title='ZNOTES - RULES',
+                          description="**Rule # 15** : Sending any harmful material such as viruses, IP grabbers or malware results in an immediate and permanent ban. ",
+                          colour=discord.Color.blue(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+# embed testing
+@bot.command()
+async def zntestingembed(ctx):
+    embed = discord.Embed(title='ZNOTES - testing embeds',
+                          description=' **Here is how to warn someone using Thanos Bot commands.** : ``Thanos Warn <User:User Mention> <Reason:Text>`` \n'
+                                      '**Here is how to check the number of warnings a user has got** : ``Thanos Warnings <User:User Mention>`` \n'
+                                      '**Here is how to delete a warning from a user** : ``Thanos DelWarning <Id: Whole number>`` \n'
+                                      '**Here is how to clear warnings from a user** : ``Thanos ClearWarnings <User:Mention/ID>`` ',
+                          colour=discord.Color.red(),
+                          url="https://znotes.org")
+    await ctx.send(embed=embed)
+
+
+# testing embeds and guides
+
+
+# guide
+@bot.command()
+@commands.has_any_role(618484528910041123, 513751591208091688, 530968077001687041, 572709257036955649)
+async def znmodrefkick(ctx):
+    embed = discord.Embed(title='ZNOTES - MOD GUIDE',
+                          description="**Here is how to kick a member** : ``Kick <User:Mention/ID> [Reason:Text]`` ",
+                          colour=discord.Color.red(),
+                          url="https://znotes.org")
+
+    await ctx.send(embed=embed)
+
+@bot.command()
+@commands.has_any_role(618484528910041123, 513751591208091688, 530968077001687041, 572709257036955649)
+async def znmodrefclear(ctx):
+    embed = discord.Embed(title='ZNOTES - MOD GUIDE',
+                          description="**Here is how to clear messages* \n "
+                                      "   **Clean 100 most recent messages** : ``Thanos clean 100`` \n"
+                                      "**Clean 100 messages sent in the last 2 hours.** : ``Thanos clean -ma 2h 100`` \n"
+                                      "**Cleans 100 messages containing pineapple** : ``Thanos clean -r pineapple 100`` \n"
+                                      "**Cleans 100 messages sent by @user** : ``Cleans 100 messages sent by @user`` \n"
+
+                                      "**Cleans 100 messages containing pineapple, and ignoring case sensitivity** : ``Thanos clean -r pineapple -i 100`` \n"
+                                      "**Cleans 100 messages sent by @user in the last 5 hours containing pineapple, ignoring case sensitivity** : ``Thanos clean -ma 5h -r pineapple -i @user 100``",
+                          colour=discord.Color.red(),
+                          url="https://znotes.org")
+
+    await ctx.send(embed=embed)
+
+@bot.command()
+@commands.has_any_role(618484528910041123, 513751591208091688, 530968077001687041, 572709257036955649)
+async def znmodrefmute(ctx):
+    embed = discord.Embed(title='ZNOTES - MOD GUIDE',
+                          description="**Here's how to mute a member** : ``Thanos Mute <User:User Mention> <Reason:Text>`` \n"
+                                      '**Here is how to mute a member for a set duration** : ``Thanos Mute <User:User Mention> <Duration:Duration> <Reason:Text>`` \n   **__OR__** \n``Thanos Mute <User:User Mention> <Reason:Text> <Duration:Duration>`` \n'
+                                      "**Here is how to unmute a member** : ``Unmute <User:User Mention> [Reason:Text]``",
+                          colour=discord.Color.red(),
+                          url="https://znotes.org")
+
+    await ctx.send(embed=embed)
+
+@bot.command()
+@commands.has_any_role(618484528910041123, 513751591208091688, 530968077001687041, 572709257036955649)
+async def znmodrefwarn(ctx):
+    embed = discord.Embed(title='ZNOTES - MOD GUIDE',
+                          description=' **Here is how to warn someone using Thanos Bot commands.** : ``Thanos Warn <User:User Mention> <Reason:Text>`` \n'
+                                      '**Here is how to check the number of warnings a user has got** : ``Thanos Warnings <User:User Mention>`` \n'
+                                      '**Here is how to delete a warning from a user** : ``Thanos DelWarning <Id: Whole number>`` \n'
+                                      '**Here is how to clear warnings from a user** : ``Thanos ClearWarnings <User:Mention/ID>`` ',
+                          colour=discord.Color.red(),
+                          url="https://znotes.org")
+
+    await ctx.send(embed=embed)
+
+#help
+@bot.command()
+@commands.has_any_role(618484528910041123, 513751591208091688, 530968077001687041, 572709257036955649)
+async def znhelp(ctx):
+    embed = discord.Embed(title="ZNotes Bot Commands Help", description="Below are the commands for the ZNotes Bot.",
+                          color=0xff8000)
+    embed.set_author(name="ZNotes Bot - Help",
+                     url="https://znotes.org/icons/znotes-large-1.png", icon_url = "https://znotes.org/icons/znotes-large-1.png")
+    embed.set_thumbnail(url="https://znotes.org/icons/znotes-large-1.png")
+    embed.add_field(name="Basic Moderation", value="znmodrefkick / znmodrefmute / znmodrefclear / znmodrefwarn    ",
+                    inline=False)
+    embed.add_field(name="Rules ",
+                    value="For printing individual rules, use zn(n) where n = 1 -> 15           [ie : zn1, zn15]                                                                             For printing the whole Rules list, use the command znrules",
+                    inline=False)
+    embed.add_field(name="Userinfo", value="use [znuserinfo @user] to print out a user's info", inline=False)
+    embed.add_field(name="Sending DM's", value="[senddm @user 'message'] to send a dm to any user in the server",
+                    inline=False)
+    await ctx.message.author.send(embed=embed)
+
+#clearing messages
+
+#@bot.command()
+#@commands.has_permissions(manage_messages=True)
+#async def clear(ctx, amount: int):
+#   await ctx.channel.purge(limit=amount +1)
+#  await ctx.send(f"{amount} message/messages got deleted")
+
+#userinfo
+@bot.command()
+async def znuserinfo(ctx, member: discord.Member):
     roles = [role for role in member.roles]
 
     embed = discord.Embed(color=member.color, timestamp=ctx.message.created_at)
@@ -256,78 +349,6 @@ async def userinfo(ctx, member: discord.Member):
     embed.add_field(name="Bot?", value=member.bot)
 
     await ctx.send(embed=embed)
-
-
-@bot.command()
-async def coinflip(ctx):
-    choices = ['heads', 'tails']
-    ranchoice = random.choice(choices)
-    await ctx.send(ranchoice)
-
-
-# sending dm's to users
-@bot.command()
-async def dm(ctx):
-    await ctx.author.send('Hey!')
-
-
-# sending dm's pt 2
-@bot.command()
-async def senddm(ctx, member: discord.Member, *, content):
-    channel = await member.create_dm()
-    await channel.send(content)
-
-#moderation
-
-@bot.command()
-@commands.has_permissions(kick_members=True)
-async def kick(ctx, member: discord.Member, *, reason = "Yeeting"):
-    await member.kick(reason=reason)
-    await ctx.send(f"{member.mention} was kicked by {ctx.author.mention}. for [{reason}]")
-
-@bot.command()
-@commands.has_permissions(ban_members=True)
-async def ban(ctx, member : discord.Member, *, reason = "Yeeting"):
-    await member.ban(reason=reason)
-    await ctx.send(f"{member.mention} was banned by {ctx.author.mention}. for [{reason}]")
-
-@bot.command()
-@commands.has_permissions(manage_messages=True)
-async def clear(ctx, amount: int):
-    await ctx.channel.purge(limit=amount +1)
-    await ctx.send(f"{amount} message/messages got deleted")
-
-@bot.command()
-async def mute(ctx, member : discord.Member):
-    guild = ctx.guild
-
-    for role in guild.roles:
-        if role.name == 'Muted':
-            await member.add_roles(role)
-            await ctx.send("{} has {} has been muted" .format(member.mention,ctx.author.mention))
-            return
-
-        overwrite = discord.PermissionOverwrite(send_messages=False)
-        newRole = await guild.create_role(name="Muted")
-
-        for channel in guild.text_channels:
-            await channel.set_permissions(newRole,overwrite=overwrite)
-
-
-        await member.add_roles(newRole)
-        await ctx.send("{} has {} has been muted" .format(member.mention,ctx.author.mention))
-
-
-@bot.command()
-async def unmute(ctx, member : discord.Member):
-    guild = ctx.guild
-
-    for role in guild.roles:
-        if role.name == "Muted":
-            await member.remove_roles(role)
-            await ctx.send("{} has {} has been unmuted" .format(member.mention,ctx.author.mention))
-            return
-
 
 
 
