@@ -7,6 +7,10 @@ from random import randint
 import datetime
 import asyncio
 
+import urllib.request
+from urllib.parse import urlparse
+import re
+
 from discord.ext import commands
 from discord.utils import get
 import youtube_dl
