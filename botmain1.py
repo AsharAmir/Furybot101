@@ -11,6 +11,9 @@ from discord.utils import get
 import youtube_dl
 import ffmpeg
 
+from random import getrandbits
+from ipaddress import IPv4Address, IPv6Address
+
 import random
 import datetime
 import asyncio
@@ -328,8 +331,145 @@ async def unmute(ctx, member : discord.Member):
             await ctx.send("{} has {} has been unmuted" .format(member.mention,ctx.author.mention))
             return
 
+@bot.command()
+async def goyt(ctx, *, search):
+    query_string = urllib.parse.urlencode({"search_query": str(search)})
+    html_content = urllib.request.urlopen("http://www.youtube.com/results?" + query_string)
+    search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.read().decode())
+    await ctx.send ("Best Result from Youtube: " + "http://www.youtube.com/watch?v=" + search_results[0])
+    return str("http://www.youtube.com/watch?v=" + search_results[0])
 
 
+
+
+#fun - fight
+@bot.command()
+async def gofight(ctx, challenger1="", challenger2=""):
+    print("A fight is taking place...")
+    if challenger1 == "":
+      challenger2 = ctx.author.mention
+    if challenger2 == "":
+      challenger2 = ctx.author.mention
+    possible_responses = [
+      f'{challenger1} has won!',
+      f'{challenger2} has won!'
+    ]
+    winner = random.choice(possible_responses)
+    await ctx.send(winner)
+
+#fun - rps
+@bot.command()
+async def gorps(ctx, choice):
+    choice = choice.lower()
+    possible_choices = [
+      'rock',
+      'paper',
+      'scissors'
+    ]
+    avy = str(ctx.message.author.avatar_url)
+    name = ctx.message.author.display_name
+    var1 = random.choice(possible_choices)
+    if choice == "rock":
+      thumb = "https://pngimg.com/uploads/stone/stone_PNG13545.png"
+      if var1 == "paper":
+        winner = "Yay! I won!"
+      elif var1 == "rock":
+        winner = "It's a tie!"
+      elif var1 == "scissors":
+        winner = f"{name} wins!"
+      else:
+        winner = "woahhhhh"
+    elif choice == "paper":
+      thumb = "https://cdn.pixabay.com/photo/2017/10/07/21/57/pape-2828083_960_720.png"
+      if var1 == "rock":
+        winner = f"{name} wins!"
+      elif var1 == "paper":
+        winner = "It's a tie!"
+      elif var1 == "scissors":
+        winner = "Yay! I win!"
+      else:
+        winner = "woahhhhh"
+    elif choice == "scissors":
+      thumb = "https://pngimg.com/uploads/scissors/scissors_PNG25.png"
+      if var1 == "rock":
+        winner = "Yay! I won!"
+      elif var1 == "paper":
+        winner = f"{name} wins!"
+      elif var1 == "scissors":
+        winner = "It's a tie!"
+    else:
+      await ctx.send("You must either say rock, paper, or scissors!")
+      return
+    embed = discord.Embed(description="Rock Paper Scissors!")
+    embed.add_field(name=f"{name}'s Choice", value=choice, inline=False)
+    embed.add_field(name="My Choice", value=var1, inline=False)
+    embed.add_field(name="Results:", value=winner, inline=False)
+    embed.set_thumbnail(url=thumb)
+    embed.set_author(name=name, icon_url=avy)
+    embed.set_footer(text=datetime.datetime.now())
+    await ctx.send(embed=embed)
+
+#fun - hack
+@bot.command()
+async def gohack(ctx, *, target: discord.Member = None):
+    if target is None:
+      target = ctx.message.author
+    v = 4
+    if v == 4:
+      bits = getrandbits(32) # generates an integer with 32 random bits
+      addr = IPv4Address(bits) # instances an IPv4Address object from those bits
+      a = str(addr) # get the IPv4Address object's string representation
+    elif v == 6:
+      bits = getrandbits(128) # generates an integer with 128 random bits
+      addr = IPv6Address(bits) # instances an IPv6Address object from those bits
+      # .compressed contains the short version of the IPv6 address
+      # str(addr) always returns the short address
+      # .exploded is the opposite of this, always returning the full address with all-zero groups and so on
+      a = addr.compressed
+    async def random_with_N_digits(n):
+      range_start = 10**(n-1)
+      range_end = (10**n)-1
+      return randint(range_start, range_end)
+    f = await random_with_N_digits(4)
+    b = target.name.lower()
+    b = b.replace(" ", "")
+    j = await random_with_N_digits(5)
+    if j > 65535:
+      j = 65535
+    message = await ctx.send("```css\nHacking...```")
+    await asyncio.sleep(2)
+    await message.edit(content="```css\nHacking...\nMember found!```")
+    await asyncio.sleep(2)
+    await message.edit(content="```css\nHacking...\nMember found!\nGetting ip...```")
+    await asyncio.sleep(2)
+    await message.edit(content="```css\nHacking...\nMember found!\nGetting ip...\nip found```")
+    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address```")
+    await asyncio.sleep(2)
+    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...```")
+    await asyncio.sleep(2)
+    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com```")
+    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******```")
+    await asyncio.sleep(2)
+    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...```")
+    await asyncio.sleep(2)
+    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.```")
+    await asyncio.sleep(2)
+    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.\nClosing Connection...```")
+    await asyncio.sleep(2)
+    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.\nClosing Connection...\nConnection Closed.```")
+    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.\nClosing Connection...\nConnection Closed.\nExited port {j}```")
+    await asyncio.sleep(2)
+    await ctx.send(f"Finished hacking user **{target.display_name}**.")
+
+#weather
+@bot.command()
+async def weather(ctx, *, loc):
+    embed=discord.Embed(discription="Weather")
+    embed.set_author(name='Requested by ' + str(ctx.message.author), icon_url= ctx.message.author.avatar_url)
+    embed.set_image(url="https://wttr.in/{0}.png?m".format(loc))
+    embed.set_footer(text="Location: " + str(loc))
+    embed.color = random.randint(0, 0xffffff)
+    await ctx.send(embed=embed)
 
 
 
