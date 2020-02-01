@@ -2,7 +2,8 @@ import discord
 import asyncio
 
 
-import random
+import random 
+from random get randint
 import datetime
 import asyncio
 
