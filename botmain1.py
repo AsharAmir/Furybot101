@@ -3,7 +3,7 @@ import asyncio
 
 
 import random 
-from random get randint
+from random import randint
 import datetime
 import asyncio
 
