@@ -475,7 +475,15 @@ async def weather(ctx, *, loc):
     embed.set_footer(text="Location: " + str(loc))
     embed.color = random.randint(0, 0xffffff)
     await ctx.send(embed=embed)
-
+    
+    
+    
+@bot.command()
+async def poll(ctx, choice1='', choice2=''):
+    ch1 = await ctx.send(choice1)
+    await ch1.add_reaction('\U00002705')
+    ch2 = await ctx.send(choice2)
+    await ch2.add_reaction('\U00002611')
 
 
 
