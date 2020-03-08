@@ -484,6 +484,11 @@ async def poll(ctx, choice1='', choice2=''):
     await ch1.add_reaction('\U00002705')
     ch2 = await ctx.send(choice2)
     await ch2.add_reaction('\U00002611')
+    
+@bot.command()
+async def moha(ctx):
+    await ctx.send('is gey, but hawt')
+
 
 
 
