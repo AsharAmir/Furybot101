@@ -207,7 +207,7 @@ async def hey(ctx):
 
 @bot.command()
 async def mahad(ctx):
-    await ctx.send('the greatest washing machine')
+    await ctx.send('do you mean mahadji?, try searching for mahadji instead!')
 
 
 @bot.command()
@@ -489,6 +489,9 @@ async def poll(ctx, choice1='', choice2=''):
 async def moha(ctx):
     await ctx.send('is gey, but hawt')
 
+@bot.command()
+async def mahadji(ctx):
+    await ctx.send('the greatest and the most handsome washing machine')
 
 
 
