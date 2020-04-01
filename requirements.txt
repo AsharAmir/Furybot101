@@ -20,3 +20,10 @@ yarl==1.3.0
 youtube-dl==2019.11.22
 opuslib==3.0.1
 urllib3==1.25.3
+PyDictionary==1.5.2
+wikipedia==1.4.0
+PyDictionary==1.5.2
+psutil==5.7.0
+cloud-translator
+asyncio==3.4.3
+Wikipedia-API==0.5.4
