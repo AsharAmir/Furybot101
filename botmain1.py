@@ -1,8 +1,7 @@
 import discord
 import asyncio
 
-
-import random 
+import random
 from random import randint
 import datetime
 import asyncio
@@ -134,12 +133,12 @@ async def play(ctx, url: str):
 
 @bot.event
 async def on_message_delete(message):
-    await message.channel.send('There was a message deleted here, haha caught ya!')
+    await message.channel.send('There was a message deleted here, hehe, yes i got eyes on you ;)!')
 
 
-@bot.command()
-async def jt(ctx):
-    await ctx.send('all hail sena!')
+# @bot.command()
+# async def jt(ctx):
+#     await ctx.send('all hail sena!')
 
 
 @bot.command()
@@ -171,18 +170,18 @@ async def m8b(ctx):
 
 
 @bot.command()
-async def roll(ctx):
+async def goroll(ctx):
     await ctx.send(random.choice(["1", "2", "3", "4", "5", "6"]))
 
 
 @bot.command()
-async def ok(ctx):
+async def okay(ctx):
     await ctx.send('boomer')
 
 
-@bot.command()
-async def maddi(ctx):
-    await ctx.send('all hail kashif!')
+# @bot.command()
+# async def maddi(ctx):
+#     await ctx.send('all hail kashif!')
 
 
 @bot.command()
@@ -190,9 +189,9 @@ async def f(ctx):
     await ctx.send('F')
 
 
-@bot.command()
-async def oi(ctx):
-    await ctx.send('Oye!!')
+# @bot.command()
+# async def oi(ctx):
+#     await ctx.send('Oye!!')
 
 
 @bot.command()
@@ -205,45 +204,45 @@ async def hey(ctx):
     await ctx.send('hello!')
 
 
-@bot.command()
-async def mahad(ctx):
-    await ctx.send('do you mean mahadji?, try searching for mahadji instead!')
-
-
-@bot.command()
-async def ashhar(ctx):
-    await ctx.send('our master!')
-
-
-@bot.command()
-async def usama(ctx):
-    await ctx.send('aapki uber aagaye hai!')
-
-
-@bot.command()
-async def WAHT(ctx):
-    await ctx.send('silence, ashar is sleeping.. zzzz!')
-
-
-@bot.command()
-async def HULLOO(ctx):
-    await ctx.send('HAAAAAAAAAI')
+# @bot.command()
+# async def mahad(ctx):
+#     await ctx.send('the greatest washing machine')
+#
+#
+# @bot.command()
+# async def ashhar(ctx):
+#     await ctx.send('our master!')
+#
+#
+# @bot.command()
+# async def usama(ctx):
+#     await ctx.send('aapki uber aagaye hai!')
+#
+#
+# @bot.command()
+# async def WAHT(ctx):
+#     await ctx.send('silence, ashar is sleeping.. zzzz!')
+#
+#
+# @bot.command()
+# async def HULLOO(ctx):
+#     await ctx.send('HAAAAAAAAAI')
 
 
 @bot.command(aliases=["repeat"])
-async def echo(ctx, *, words):
+async def plssay(ctx, *, words):
     await ctx.send(words)
 
 
-@bot.command()
-async def testembed(ctx):
-    embed = discord.Embed(title='Title', descrpition='description', colour=discord.Color.red(),
-                          url="https://www.google.com")
-    await ctx.send(embed=embed)
+# @bot.command()
+# async def testembed(ctx):
+#     embed = discord.Embed(title='Title', descrpition='description', colour=discord.Color.red(),
+#                           url="https://www.google.com")
+#     await ctx.send(embed=embed)
 
 
 @bot.command()
-async def userinfo(ctx, member: discord.Member):
+async def plsuserinfo(ctx, member: discord.Member):
     roles = [role for role in member.roles]
 
     embed = discord.Embed(color=member.color, timestamp=ctx.message.created_at)
@@ -267,16 +266,16 @@ async def userinfo(ctx, member: discord.Member):
 
 
 @bot.command()
-async def coinflip(ctx):
+async def plscoinflip(ctx):
     choices = ['heads', 'tails']
     ranchoice = random.choice(choices)
     await ctx.send(ranchoice)
 
 
-# sending dm's to users
-@bot.command()
-async def dm(ctx):
-    await ctx.author.send('Hey!')
+# # sending dm's to users
+# @bot.command()
+# async def dm(ctx):
+#     await ctx.author.send('Hey!')
 
 
 # sending dm's pt 2
@@ -285,126 +284,129 @@ async def senddm(ctx, member: discord.Member, *, content):
     channel = await member.create_dm()
     await channel.send(content)
 
-#moderation
+
+# moderation
 
 @bot.command()
 @commands.has_permissions(kick_members=True)
-async def kick(ctx, member: discord.Member, *, reason = "Yeeting"):
+async def gokick(ctx, member: discord.Member, *, reason="Yeeting"):
     await member.kick(reason=reason)
     await ctx.send(f"{member.mention} was kicked by {ctx.author.mention}. for [{reason}]")
 
+
 @bot.command()
 @commands.has_permissions(ban_members=True)
-async def ban(ctx, member : discord.Member, *, reason = "Yeeting"):
+async def goban(ctx, member: discord.Member, *, reason="Yeeting"):
     await member.ban(reason=reason)
     await ctx.send(f"{member.mention} was banned by {ctx.author.mention}. for [{reason}]")
 
-@bot.command()
-@commands.has_permissions(manage_messages=True)
-async def clear(ctx, amount: int):
-    await ctx.channel.purge(limit=amount +1)
-    await ctx.send(f"{amount} message/messages got deleted")
 
 @bot.command()
-async def mute(ctx, member : discord.Member):
+@commands.has_permissions(manage_messages=True)
+async def goclear(ctx, amount: int):
+    await ctx.channel.purge(limit=amount + 1)
+    await ctx.send(f"{amount} message/messages got deleted")
+
+
+@bot.command()
+async def gomute(ctx, member: discord.Member):
     guild = ctx.guild
 
     for role in guild.roles:
         if role.name == 'Muted':
             await member.add_roles(role)
-            await ctx.send("{} has {} has been muted" .format(member.mention,ctx.author.mention))
+            await ctx.send("{} has {} has been muted".format(member.mention, ctx.author.mention))
             return
 
         overwrite = discord.PermissionOverwrite(send_messages=False)
         newRole = await guild.create_role(name="Muted")
 
         for channel in guild.text_channels:
-            await channel.set_permissions(newRole,overwrite=overwrite)
-
+            await channel.set_permissions(newRole, overwrite=overwrite)
 
         await member.add_roles(newRole)
-        await ctx.send("{} has {} has been muted" .format(member.mention,ctx.author.mention))
+        await ctx.send("{} has {} has been muted".format(member.mention, ctx.author.mention))
 
 
 @bot.command()
-async def unmute(ctx, member : discord.Member):
+async def gounmute(ctx, member: discord.Member):
     guild = ctx.guild
 
     for role in guild.roles:
         if role.name == "Muted":
             await member.remove_roles(role)
-            await ctx.send("{} has {} has been unmuted" .format(member.mention,ctx.author.mention))
+            await ctx.send("{} has {} has been unmuted".format(member.mention, ctx.author.mention))
             return
+
 
 @bot.command()
 async def goyt(ctx, *, search):
     query_string = urllib.parse.urlencode({"search_query": str(search)})
     html_content = urllib.request.urlopen("http://www.youtube.com/results?" + query_string)
     search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.read().decode())
-    await ctx.send ("Best Result from Youtube: " + "http://www.youtube.com/watch?v=" + search_results[0])
+    await ctx.send("Best Result from Youtube: " + "http://www.youtube.com/watch?v=" + search_results[0])
     return str("http://www.youtube.com/watch?v=" + search_results[0])
 
 
-
-
-#fun - fight
+# fun - fight
 @bot.command()
 async def gofight(ctx, challenger1="", challenger2=""):
     print("A fight is taking place...")
     if challenger1 == "":
-      challenger2 = ctx.author.mention
+        challenger2 = ctx.author.mention
     if challenger2 == "":
-      challenger2 = ctx.author.mention
+        challenger2 = ctx.author.mention
     possible_responses = [
-      f'{challenger1} has won!',
-      f'{challenger2} has won!'
+        f'{challenger1} has won!',
+        f'{challenger2} has won!'
     ]
     winner = random.choice(possible_responses)
     await ctx.send(winner)
 
-#fun - rps
+
+# fun - rps
 @bot.command()
 async def gorps(ctx, choice):
     choice = choice.lower()
     possible_choices = [
-      'rock',
-      'paper',
-      'scissors'
+        'rock',
+        'paper',
+        'scissors'
     ]
     avy = str(ctx.message.author.avatar_url)
     name = ctx.message.author.display_name
     var1 = random.choice(possible_choices)
     if choice == "rock":
-      thumb = "https://pngimg.com/uploads/stone/stone_PNG13545.png"
-      if var1 == "paper":
-        winner = "Yay! I won!"
-      elif var1 == "rock":
-        winner = "It's a tie!"
-      elif var1 == "scissors":
-        winner = f"{name} wins!"
-      else:
-        winner = "woahhhhh"
+        thumb = "https://pngimg.com/uploads/stone/stone_PNG13545.png"
+        if var1 == "paper":
+            winner = "Yay! I won!"
+        elif var1 == "rock":
+            winner = "It's a tie!"
+        elif var1 == "scissors":
+            winner = f"{name} wins!"
+        else:
+            winner = "woahhhhh"
     elif choice == "paper":
-      thumb = "https://cdn.pixabay.com/photo/2017/10/07/21/57/pape-2828083_960_720.png"
-      if var1 == "rock":
-        winner = f"{name} wins!"
-      elif var1 == "paper":
-        winner = "It's a tie!"
-      elif var1 == "scissors":
-        winner = "Yay! I win!"
-      else:
-        winner = "woahhhhh"
+        thumb = "https://cdn.pixabay.com/photo/2017/10/07/21/57/pape-2828083_960_720.png"
+        if var1 == "rock":
+            winner = f"{name} wins!"
+        elif var1 == "paper":
+            winner = "It's a tie!"
+        elif var1 == "scissors":
+            winner = "Yay! I win!"
+        else:
+            winner = "woahhhhh"
     elif choice == "scissors":
-      thumb = "https://pngimg.com/uploads/scissors/scissors_PNG25.png"
-      if var1 == "rock":
-        winner = "Yay! I won!"
-      elif var1 == "paper":
-        winner = f"{name} wins!"
-      elif var1 == "scissors":
-        winner = "It's a tie!"
+        thumb = "https://pngimg.com/uploads/scissors/scissors_PNG25.png"
+        if var1 == "rock":
+            winner = "Yay! I won!"
+        elif var1 == "paper":
+            winner = f"{name} wins!"
+        elif var1 == "scissors":
+            winner = "It's a tie!"
     else:
-      await ctx.send("You must either say rock, paper, or scissors!")
-      return
+        await ctx.send("You must either say rock, paper, or scissors!")
+        return
     embed = discord.Embed(description="Rock Paper Scissors!")
     embed.add_field(name=f"{name}'s Choice", value=choice, inline=False)
     embed.add_field(name="My Choice", value=var1, inline=False)
@@ -414,33 +416,36 @@ async def gorps(ctx, choice):
     embed.set_footer(text=datetime.datetime.now())
     await ctx.send(embed=embed)
 
-#fun - hack
+
+# fun - hack
 @bot.command()
 async def gohack(ctx, *, target: discord.Member = None):
     if target is None:
-      target = ctx.message.author
+        target = ctx.message.author
     v = 4
     if v == 4:
-      bits = getrandbits(32) # generates an integer with 32 random bits
-      addr = IPv4Address(bits) # instances an IPv4Address object from those bits
-      a = str(addr) # get the IPv4Address object's string representation
+        bits = getrandbits(32)  # generates an integer with 32 random bits
+        addr = IPv4Address(bits)  # instances an IPv4Address object from those bits
+        a = str(addr)  # get the IPv4Address object's string representation
     elif v == 6:
-      bits = getrandbits(128) # generates an integer with 128 random bits
-      addr = IPv6Address(bits) # instances an IPv6Address object from those bits
-      # .compressed contains the short version of the IPv6 address
-      # str(addr) always returns the short address
-      # .exploded is the opposite of this, always returning the full address with all-zero groups and so on
-      a = addr.compressed
+        bits = getrandbits(128)  # generates an integer with 128 random bits
+        addr = IPv6Address(bits)  # instances an IPv6Address object from those bits
+        # .compressed contains the short version of the IPv6 address
+        # str(addr) always returns the short address
+        # .exploded is the opposite of this, always returning the full address with all-zero groups and so on
+        a = addr.compressed
+
     async def random_with_N_digits(n):
-      range_start = 10**(n-1)
-      range_end = (10**n)-1
-      return randint(range_start, range_end)
+        range_start = 10 ** (n - 1)
+        range_end = (10 ** n) - 1
+        return randint(range_start, range_end)
+
     f = await random_with_N_digits(4)
     b = target.name.lower()
     b = b.replace(" ", "")
     j = await random_with_N_digits(5)
     if j > 65535:
-      j = 65535
+        j = 65535
     message = await ctx.send("```css\nHacking...```")
     await asyncio.sleep(2)
     await message.edit(content="```css\nHacking...\nMember found!```")
@@ -448,51 +453,257 @@ async def gohack(ctx, *, target: discord.Member = None):
     await message.edit(content="```css\nHacking...\nMember found!\nGetting ip...```")
     await asyncio.sleep(2)
     await message.edit(content="```css\nHacking...\nMember found!\nGetting ip...\nip found```")
-    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address```")
+    await message.edit(
+        content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address```")
     await asyncio.sleep(2)
-    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...```")
+    await message.edit(
+        content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...```")
     await asyncio.sleep(2)
-    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com```")
-    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******```")
+    await message.edit(
+        content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com```")
+    await message.edit(
+        content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******```")
     await asyncio.sleep(2)
-    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...```")
+    await message.edit(
+        content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...```")
     await asyncio.sleep(2)
-    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.```")
+    await message.edit(
+        content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.```")
     await asyncio.sleep(2)
-    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.\nClosing Connection...```")
+    await message.edit(
+        content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.\nClosing Connection...```")
     await asyncio.sleep(2)
-    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.\nClosing Connection...\nConnection Closed.```")
-    await message.edit(content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.\nClosing Connection...\nConnection Closed.\nExited port {j}```")
+    await message.edit(
+        content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.\nClosing Connection...\nConnection Closed.```")
+    await message.edit(
+        content=f"```css\nHacking...\nMember found!\nGetting ip...\nip found\nip={a}\nVirus pushed to ip address\nGetting info...\nemail={b}{f}@gmail.com\npassword=******\nDeleting files...\nFiles deleted.\nClosing Connection...\nConnection Closed.\nExited port {j}```")
     await asyncio.sleep(2)
     await ctx.send(f"Finished hacking user **{target.display_name}**.")
 
-#weather
+
+# weather
 @bot.command()
-async def weather(ctx, *, loc):
-    embed=discord.Embed(discription="Weather")
-    embed.set_author(name='Requested by ' + str(ctx.message.author), icon_url= ctx.message.author.avatar_url)
+async def plsweather(ctx, *, loc):
+    embed  = discord.Embed(discription="Weather")
+    embed.set_author(name='Requested by ' + str(ctx.message.author), icon_url=ctx.message.author.avatar_url)
     embed.set_image(url="https://wttr.in/{0}.png?m".format(loc))
     embed.set_footer(text="Location: " + str(loc))
     embed.color = random.randint(0, 0xffffff)
     await ctx.send(embed=embed)
-    
-    
-    
-@bot.command()
-async def poll(ctx, choice1='', choice2=''):
-    ch1 = await ctx.send(choice1)
-    await ch1.add_reaction('\U00002705')
-    ch2 = await ctx.send(choice2)
-    await ch2.add_reaction('\U00002611')
-    
-@bot.command()
-async def moha(ctx):
-    await ctx.send('is gey, but hawt')
+
+
+
+
+from translator import *
+
 
 @bot.command()
-async def mahadji(ctx):
-    await ctx.send('the greatest and the most handsome washing machine')
+async def gotranslate(ctx, src, dest, *, rawcontent):
+    translator = GoogleTranslator()
+    embed = discord.Embed(title='Translator', description='Translating from ' + str(src) + ' to ' + str(dest))
+    embed.add_field(name='Source : ', value='```' + rawcontent + '```')
+    destination = (translator.translate(rawcontent, dest=dest, src=src))
+    embed.add_field(name='Translated to : ', value='```' + destination + '```')
+    embed.color = random.randint(0, 0xffffff)
+    await ctx.send(embed=embed)
 
+
+@bot.command()
+async def langhelp(ctx):
+    await ctx.send('Use this link for the language codes -- > http://www.mathguide.de/info/tools/languagecode.html')
+
+@bot.command()
+async def plsremind(ctx, tim: int, *, work):
+    await ctx.send(
+        ctx.author.mention + ' - Your task <' + work + '> has been set! You\'ll be reminded after ' + int(
+            tim) + ' minute(s)!')
+    await asyncio.sleep(tim)
+    await ctx.send(ctx.author.mention + '**REMINDER** - Go commit ' + work + ' right now :point_down_tone2: ;<')
+
+@bot.command()
+async def plsbotping(ctx):
+    color = discord.Color(value=0x00ff00)
+    em = discord.Embed(color=color, title='Bot Latency:')
+    em.description = f"{bot.latency * 1000:.4f} ms"
+    await ctx.send(embed=em)
+
+import time
+
+bot.uptime = time.time()
+bot.message_count = 0
+bot.messages_sent = 0
+bot.mentions_count = 0
+
+
+@bot.listen()
+async def on_message(message):
+    if message.author.bot:
+        bot.messages_sent += 1
+    bot.message_count += 1
+
+    if (
+            bot.user.name.lower() in message.content.lower() or
+            bot.user.mentioned_in(message)
+    ):
+        bot.mentions_count += 1
+
+import psutil
+
+# bot status
+@bot.command()
+async def botstatus(ctx):
+    uptime = time.time() - bot.uptime
+    minutes, seconds = divmod(uptime, 60)
+    hours, minutes = divmod(minutes, 60)
+
+    process = psutil.Process(os.getpid())
+    mem_usage = process.memory_info().rss
+    mem_usage /= 1024 ** 2
+
+    embed = discord.Embed(
+        colour=discord.Colour.green(),
+        title='Status - Fury the Bot'
+    )
+    embed.set_thumbnail(url=bot.user.avatar_url)
+    embed.add_field(
+        name='Bot Uptime 🕖',
+        value=f'{int(hours)} hours, {int(minutes)} minutes, {int(seconds)} seconds',
+        inline=False
+    )
+    embed.add_field(name='Messages Received in the server 📥', value=bot.message_count)
+    embed.add_field(name='Messages Sent by any bot 📤', value=bot.messages_sent)
+    embed.add_field(name='Mentions to this bot 🏷️', value=bot.mentions_count)
+    embed.add_field(name='Memory Usage 💾', value=f'{mem_usage:.2f} MiB')
+    embed.add_field(name='Bot version #️⃣',
+                    value='This bot is running on version ' + discord.__version__ + ' of discord.py')
+    embed.add_field(name='Python version 🐍', value='3.7')
+
+    await ctx.send(embed=embed)
+
+@bot.event
+async def on_member_join(member):
+    print("Member named  " + member.name + " has joined")
+
+    await member.send("**Welcome to the server boiiiii!, ** " + member.mention + "We're so happy to have you :D, have fun and make sure to spread love!")
+
+import PyDictionary
+from PyDictionary import PyDictionary
+
+
+@bot.command(pass_context=True)
+async def plsdefine(ctx):
+    dictionary = PyDictionary()
+    splitWord = (ctx.message.content.split(" ")[1])
+    definedWord = dictionary.meaning(splitWord)
+    embed = discord.Embed(title="Definition of " + splitWord, description="Here's what I could find.", color=0x00ffff)
+    for k, v in definedWord.items():
+        for e in v:
+            embed.add_field(name=k, value=e, inline=False)
+    await ctx.send(embed=embed)
+
+
+import wikipedia
+
+# WIKIPEDIA
+@bot.command()
+async def gowiki(ctx, userInput):
+    try:
+        await ctx.send(format(wikipedia.summary(userInput, sentences=4)))
+    except wikipedia.exceptions.DisambiguationError as e:
+        await ctx.send(format(("Error: {0}".format(e))))
+        await ctx.send("Error: too many results, please try again with more details.")
+
+
+@bot.command()
+async def gopic(ctx, userInput):
+    try:
+        picFind = wikipedia.page(userInput)
+        await ctx.send("Picture from: <{}>".format(picFind.url))
+        await ctx.send(picFind.images[6])
+
+    except wikipedia.exceptions.DisambiguationError as e:
+        await ctx.send(format(("Error: {0}".format(e))))
+        await ctx.send("Please try again with more details.")
+
+@bot.command()
+async def gotimer(ctx, time: int):
+    newtime = int(time * 60)
+    if time == 1:
+        await ctx.send('Timer set for ' + str(time) + ' minute')
+        await asyncio.sleep(newtime)
+        await ctx.send(str(time) + ' minute has passed! ' + ctx.message.author.mention)
+    if time > 1:
+        await ctx.send('Timer set for ' + str(time) + ' minutes')
+        await asyncio.sleep(newtime)
+        await ctx.send(str(time) + ' minutes has passed! ' + ctx.message.author.mention)
+
+@bot.command()
+async def plshelp(ctx):
+    embed = discord.Embed(title="Fury the Bot - Help", description="Below are the commands for Fury The Bot")
+    embed.set_author(
+        name="Fury The Bot",
+        icon_url="https://discordapp.com/channels/@me/571013644830244864/694975138801778778")
+    embed.set_thumbnail(url="https://discordapp.com/channels/@me/571013644830244864/694975138801778778")
+    embed.add_field(name="Getting information for a user", value="```plsuserinfo <@user>```", inline=False)
+    # embed.add_field(name="Bot's information", value="```znbotinfo```", inline=False)
+    # embed.add_field(name="Send a mail to the team", value="```znmail <content>```", inline=False)
+    # embed.add_field(name="Send a report to the team", value="```znreport <content>```", inline=False)
+    embed.add_field(name="Fight a user xD", value="```gofight @user```", inline=False)
+    embed.add_field(name="8ball", value="```m8b <question>```", inline=False)
+    embed.add_field(name="Rock paper scissor", value="```gorps <rock/paper/scissor>```", inline=False)
+    embed.add_field(name="Hack someone (hak0rman)", value="```gohack @user```", inline=False)
+    embed.add_field(name="Fetching a youtube link", value="```goyt <keyword>```", inline=False)
+    embed.add_field(name="Fetching an article summary from Wikipedia", value="```gowiki <keyword>```", inline=False)
+    embed.add_field(name="Fetching a picture from Wikipedia", value="```gopic <keyword>```", inline=False)
+    embed.add_field(name="Fetching Weather", value="```plsweather <location>```", inline=False)
+    # embed.add_field(name="For printing individual rules",
+    #                 value="```use zn(n) where n = 1 -> 15 [ie : zn1, zn15] For printing the whole Rules list, use the command znrules```",
+    #                 inline=False)
+    embed.add_field(name="For starting a poll",
+                    value="```gopoll <question in quotations> <entries in quotations each if they're more than a single word> (max entries = 10)```",
+                    inline=False)
+    embed.add_field(name="For setting a timer",
+                    value="```gotimer <minutes>```",
+                    inline=False)
+    embed.add_field(name="For sending dm's to a user",
+                    value="```senddm <@user>```",
+                    inline=False)
+    embed.add_field(name="For flipping a coin",
+                    value="```plscoinflip```",
+                    inline=False)
+    embed.add_field(name="For getting the bot to say something",
+                    value="```plssay <content>```",
+                    inline=False)
+    embed.add_field(name="For kicking someone",
+                    value="```gokick <@user>```",
+                    inline=False)
+    embed.add_field(name="For banning someone",
+                    value="```plsban <@user>```",
+                    inline=False)
+    embed.add_field(name="For muting someone",
+                    value="```plsmute <@user>```",
+                    inline=False)
+
+    embed.add_field(name="For unmuteing someone",
+                    value="```plsunmute <@user>```",
+                    inline=False)
+    embed.add_field(name="For getting reminders",
+                    value="```plsremind <content>```",
+                    inline=False)
+    embed.add_field(name="For searching the dictionary",
+                    value="```plsdefine <word>```",
+                    inline=False)
+    embed.add_field(name="For translating a text",
+                    value="```plstranslate <source <dest> <content>```",
+                    inline=False)
+    # embed.add_field(name="For printing the whole rule list", value="```znrules```", inline=False)
+    embed.add_field(name="For getting the bot status", value="```botstatus```", inline=False)
+    # embed.add_field(name="For getting the invite link and the link to the ZNotes website", value="```zninfo```",
+    #                 inline=False)
+    await ctx.send('A DM has been sent to you!')
+    embed.set_footer(text="For queries, dm Fury™#7941 (Furry)")
+    embed.color = random.randint(0, 0xffffff)
+    await ctx.message.author.send(embed=embed)
 
 
 bot.run(TOKEN)
