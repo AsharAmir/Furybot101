@@ -31,7 +31,7 @@ from itertools import cycle
 TOKEN = 'NjQzMzI4MDcyNjIzNDU2Mjc2.XguZGA.WkbmdCN33T2asrV99vf5dUh23_Y'
 BOT_PREFIX = ''
 
-bot = commands.Bot(command_prefix=BOT_PREFIX)
+bot = commands.Bot(command_prefix=BOT_PREFIX, case_insensitive=True)
 
 
 @bot.event
