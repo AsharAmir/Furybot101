@@ -131,10 +131,10 @@ async def play(ctx, url: str):
 
 # other commands
 
-@bot.event
-async def on_message_delete(message):
-    if message.author.bot = False:
-        await message.channel.send('There was a message deleted here, hehe, yes i got eyes on you ;)!')
+# @bot.event
+# async def on_message_delete(message):
+#     if message.author.bot = False:
+#         await message.channel.send('There was a message deleted here, hehe, yes i got eyes on you ;)!')
 
 
 # @bot.command()
