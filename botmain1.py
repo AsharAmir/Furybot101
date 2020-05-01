@@ -45,8 +45,15 @@ async def on_ready():
     replit.clear()
     print(f'Logged in as {bot.user.name} - {bot.user.id}')
     bot.remove_command('help')
-    await bot.change_presence(status=discord.Status.idle, activity=discord.Game("with kittens 3> | dm Hi"))
+    await bot.change_presence(status=discord.Status.idle, activity=discord.Game("with kittens 3> | plshelp"))
 
+ @bot.command()
+async def plsinvite(ctx):
+    await ctx.send('Here is the link to invite me : https://discordapp.com/api/oauth2/authorize?client_id=643328072623456276&permissions=0&scope=bot ; the help menu : plshelp')
+ 
+@bot.command()
+async def plsserevr(ctx):
+    await ctx.send('Im in + len(bot.servers) + ' servers')
 
 # playing audio in a voice channel
 
