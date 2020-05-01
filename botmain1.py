@@ -53,7 +53,8 @@ async def plsinvite(ctx):
  
 @bot.command()
 async def plsserver(ctx):
-    await ctx.send('Im in + len(bot.servers) + ' servers')
+    count = len(bot.servers)
+    await ctx.send('Im in + int(count)  + ' servers')
 
 # playing audio in a voice channel
 
