@@ -667,9 +667,7 @@ async def plshelp(ctx):
     # embed.add_field(name="For printing individual rules",
     #                 value="```use zn(n) where n = 1 -> 15 [ie : zn1, zn15] For printing the whole Rules list, use the command znrules```",
     #                 inline=False)
-    embed.add_field(name="For starting a poll",
-                    value="```gopoll <question in quotations> <entries in quotations each if they're more than a single word> (max entries = 10)```",
-                    inline=False)
+    
     embed.add_field(name="For setting a timer",
                     value="```gotimer <minutes>```",
                     inline=False)
