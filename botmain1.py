@@ -704,7 +704,7 @@ async def plshelp(ctx):
     embed.add_field(name="For translating a text",
                     value="```plstranslate <source <dest> <content>```",
                     inline=False)
-        embed.add_field(name="For starting a poll",
+    embed.add_field(name="For starting a poll",
                     value="```plspoll <question in quotations> <entries in quotations each if they're more than a single word> (max entries = 10)```",
                     inline=False)
     # embed.add_field(name="For printing the whole rule list", value="```znrules```", inline=False)
