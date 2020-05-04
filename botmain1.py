@@ -506,7 +506,7 @@ from translator import *
 
 
 @bot.command()
-async def gotranslate(ctx, src, dest, *, rawcontent):
+async def plstranslate(ctx, src, dest, *, rawcontent):
     translator = GoogleTranslator()
     embed = discord.Embed(title='Translator', description='Translating from ' + str(src) + ' to ' + str(dest))
     embed.add_field(name='Source : ', value='```' + rawcontent + '```')
@@ -521,7 +521,7 @@ async def langhelp(ctx):
     await ctx.send('Use this link for the language codes -- > http://www.mathguide.de/info/tools/languagecode.html')
 
 @bot.command()
-async def plsremind(ctx, tim: int, *, work):
+async def plsremind(ctx, tim: int, work = ""):
     await ctx.send(
         ctx.author.mention + ' - Your task <' + work + '> has been set! You\'ll be reminded after ' + int(
             tim) + ' minute(s)!')
@@ -704,6 +704,9 @@ async def plshelp(ctx):
     embed.add_field(name="For translating a text",
                     value="```plstranslate <source <dest> <content>```",
                     inline=False)
+        embed.add_field(name="For starting a poll",
+                    value="```plspoll <question in quotations> <entries in quotations each if they're more than a single word> (max entries = 10)```",
+                    inline=False)
     # embed.add_field(name="For printing the whole rule list", value="```znrules```", inline=False)
     embed.add_field(name="For getting the bot status", value="```botstatus```", inline=False)
     # embed.add_field(name="For getting the invite link and the link to the ZNotes website", value="```zninfo```",
@@ -712,6 +715,39 @@ async def plshelp(ctx):
     embed.set_footer(text="For queries, dm Fury™#7941 (Furry)")
     embed.color = random.randint(0, 0xffffff)
     await ctx.message.author.send(embed=embed)
+
+    
+    
+@bot.command()
+async def plspoll(ctx, query = '', *args):
+
+        var1 = len(args)
+        print(var1)
+
+        embed = discord.Embed(title=query, description='React below to cast your vote!')
+        embed.set_author(
+            name="ZNotes Bot",
+            icon_url="https://cdn.discordapp.com/attachments/670613038662942751/674287370048110602/znlogo.png")
+        embed.set_thumbnail(
+            url="https://cdn.discordapp.com/attachments/670613038662942751/674287370048110602/znlogo.png")
+
+        for x, arg in enumerate(args):
+                labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+                var2 = labels[x]
+                x += 1
+                embed.add_field(name='**' + var2 + '**', value=arg, inline=False)
+
+        embed.color = random.randint(0, 0xffffff)
+        msg = await ctx.send(embed=embed)
+
+        for i in range (len(args)):
+            reacts = ['\U0001f1e6', '\U0001f1e7', '\U0001f1e8', '\U0001f1e9',  '\U0001f1ea', '\U0001f1eb', '\U0001f1ec', '\U0001f1ed', '\U0001f1ee', '\U0001f1ef']
+            reaction = reacts[i]
+
+            i += 1
+            await msg.add_reaction(reaction)
+
+
 
 
 bot.run(TOKEN)
