@@ -724,10 +724,10 @@ async def plspoll(ctx, query = '', *args):
 
         embed = discord.Embed(title=query, description='React below to cast your vote!')
         embed.set_author(
-            name="ZNotes Bot",
-            icon_url="https://cdn.discordapp.com/attachments/670613038662942751/674287370048110602/znlogo.png")
+            name="Fury the Bot",
+            icon_url="https://media.discordapp.net/attachments/635456863357632513/706937706575298780/furrylogo.PNG?width=497&height=566")
         embed.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/670613038662942751/674287370048110602/znlogo.png")
+            url="https://media.discordapp.net/attachments/635456863357632513/706937706575298780/furrylogo.PNG?width=497&height=566")
 
         for x, arg in enumerate(args):
                 labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
