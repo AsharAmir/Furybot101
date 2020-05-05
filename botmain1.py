@@ -705,6 +705,9 @@ async def plshelp(ctx):
     embed.add_field(name="For starting a poll",
                     value="```plspoll <question in quotations> <entries in quotations each if they're more than a single word> (max entries = 10)```",
                     inline=False)
+    embed.add_field(name="For shipping with someone ;)",
+                    value="```plsship <@user>```",
+                    inline=False)
     # embed.add_field(name="For printing the whole rule list", value="```znrules```", inline=False)
     embed.add_field(name="For getting the bot status", value="```botstatus```", inline=False)
     # embed.add_field(name="For getting the invite link and the link to the ZNotes website", value="```zninfo```",
@@ -745,6 +748,10 @@ async def plspoll(ctx, query = '', *args):
             i += 1
             await msg.add_reaction(reaction)
 
+@bot.command()
+async def plsship(ctx, member : discord.Member):
+    number = random.randint(1, 100)
+    await ctx.send(f"Ummmm so its a {number} % match shipping {ctx.author.mention} with {member.mention}")
 
 
 
