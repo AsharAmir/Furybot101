@@ -757,10 +757,7 @@ async def plsship(ctx, member : discord.Member):
 async def im(ctx, *, content):
     await ctx.send('Hey, ' + content + ', im fury the bot :D, nice to meet ya!')
     
- 
-@bot.command()
-async def i am(ctx, *, content):
-    await ctx.send('Hey, ' + content + ', im fury the bot :D, nice to meet ya!')
+
 
 
 bot.run(TOKEN)
