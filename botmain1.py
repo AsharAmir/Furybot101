@@ -521,7 +521,7 @@ async def langhelp(ctx):
     await ctx.send('Use this link for the language codes -- > http://www.mathguide.de/info/tools/languagecode.html')
 
 @bot.command()
-async def goremind(ctx, tim: int, work = ""):
+async def goremind(ctx, tim: int, *, work):
     await ctx.send(
         ctx.author.mention + ' - Your task <' + str(work) + '> has been set! You\'ll be reminded after ' + int(
             tim) + ' minute(s)!')
