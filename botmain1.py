@@ -151,7 +151,7 @@ async def play(ctx, url: str):
 
 @bot.command()
 async def Hi(ctx):
-    await ctx.send('Haaaai!!! How are you doing?')
+    await ctx.send('Heyyyyyy! Wasssssupppp' + ctx.author.mention + ' how ya doin!')
 
 
 @bot.command()
@@ -209,7 +209,7 @@ async def yeet(ctx):
 
 @bot.command()
 async def hey(ctx):
-    await ctx.send('hello!')
+    await ctx.send(f"hey there {ctx.author.name}!")
 
 
 # @bot.command()
@@ -238,7 +238,7 @@ async def hey(ctx):
 
 
 @bot.command(aliases=["repeat"])
-async def plssay(ctx, *, words):
+async def gosay(ctx, *, words):
     await ctx.send(words)
 
 
@@ -250,7 +250,7 @@ async def plssay(ctx, *, words):
 
 
 @bot.command()
-async def plsuserinfo(ctx, member: discord.Member):
+async def gouserinfo(ctx, member: discord.Member):
     roles = [role for role in member.roles]
 
     embed = discord.Embed(color=member.color, timestamp=ctx.message.created_at)
@@ -274,7 +274,7 @@ async def plsuserinfo(ctx, member: discord.Member):
 
 
 @bot.command()
-async def plscoinflip(ctx):
+async def gocoinflip(ctx):
     choices = ['heads', 'tails']
     ranchoice = random.choice(choices)
     await ctx.send(ranchoice)
@@ -491,7 +491,7 @@ async def gohack(ctx, *, target: discord.Member = None):
 
 # weather
 @bot.command()
-async def plsweather(ctx, *, loc):
+async def goweather(ctx, *, loc):
     embed  = discord.Embed(discription="Weather")
     embed.set_author(name='Requested by ' + str(ctx.message.author), icon_url=ctx.message.author.avatar_url)
     embed.set_image(url="https://wttr.in/{0}.png?m".format(loc))
@@ -506,7 +506,7 @@ from translator import *
 
 
 @bot.command()
-async def plstranslate(ctx, src, dest, *, rawcontent):
+async def gotranslate(ctx, src, dest, *, rawcontent):
     translator = GoogleTranslator()
     embed = discord.Embed(title='Translator', description='Translating from ' + str(src) + ' to ' + str(dest))
     embed.add_field(name='Source : ', value='```' + rawcontent + '```')
@@ -521,15 +521,16 @@ async def langhelp(ctx):
     await ctx.send('Use this link for the language codes -- > http://www.mathguide.de/info/tools/languagecode.html')
 
 @bot.command()
-async def plsremind(ctx, tim: int, work = ""):
+async def goremind(ctx, tim: int, work = ""):
     await ctx.send(
-        ctx.author.mention + ' - Your task <' + work + '> has been set! You\'ll be reminded after ' + int(
+        ctx.author.mention + ' - Your task <' + str(work) + '> has been set! You\'ll be reminded after ' + int(
             tim) + ' minute(s)!')
-    await asyncio.sleep(tim)
-    await ctx.send(ctx.author.mention + '**REMINDER** - Go commit ' + work + ' right now :point_down_tone2: ;<')
+    min = tim * 60
+    await asyncio.sleep(min)
+    await ctx.send(ctx.author.mention + '**REMINDER** - Go commit ' + str(work) + ' right now :point_down_tone2: ;<')
 
 @bot.command()
-async def plsbotping(ctx):
+async def gobotping(ctx):
     color = discord.Color(value=0x00ff00)
     em = discord.Embed(color=color, title='Bot Latency:')
     em.description = f"{bot.latency * 1000:.4f} ms"
@@ -599,7 +600,7 @@ from PyDictionary import PyDictionary
 
 
 @bot.command(pass_context=True)
-async def plsdefine(ctx):
+async def godefine(ctx):
     dictionary = PyDictionary()
     splitWord = (ctx.message.content.split(" ")[1])
     definedWord = dictionary.meaning(splitWord)
@@ -652,7 +653,7 @@ async def plshelp(ctx):
         name="Fury The Bot",
         icon_url="https://discordapp.com/channels/@me/571013644830244864/694975138801778778")
     embed.set_thumbnail(url="https://discordapp.com/channels/@me/571013644830244864/694975138801778778")
-    embed.add_field(name="Getting information for a user", value="```plsuserinfo <@user>```", inline=False)
+    embed.add_field(name="Getting information for a user", value="```gouserinfo <@user>```", inline=False)
     # embed.add_field(name="Bot's information", value="```znbotinfo```", inline=False)
     # embed.add_field(name="Send a mail to the team", value="```znmail <content>```", inline=False)
     # embed.add_field(name="Send a report to the team", value="```znreport <content>```", inline=False)
@@ -663,7 +664,7 @@ async def plshelp(ctx):
     embed.add_field(name="Fetching a youtube link", value="```goyt <keyword>```", inline=False)
     embed.add_field(name="Fetching an article summary from Wikipedia", value="```gowiki <keyword>```", inline=False)
     embed.add_field(name="Fetching a picture from Wikipedia", value="```gopic <keyword>```", inline=False)
-    embed.add_field(name="Fetching Weather", value="```plsweather <location>```", inline=False)
+    embed.add_field(name="Fetching Weather", value="```goweather <location>```", inline=False)
     # embed.add_field(name="For printing individual rules",
     #                 value="```use zn(n) where n = 1 -> 15 [ie : zn1, zn15] For printing the whole Rules list, use the command znrules```",
     #                 inline=False)
@@ -678,35 +679,35 @@ async def plshelp(ctx):
                     value="```plscoinflip```",
                     inline=False)
     embed.add_field(name="For getting the bot to say something",
-                    value="```plssay <content>```",
+                    value="```gosay <content>```",
                     inline=False)
     embed.add_field(name="For kicking someone",
                     value="```gokick <@user>```",
                     inline=False)
     embed.add_field(name="For banning someone",
-                    value="```plsban <@user>```",
+                    value="```goban <@user>```",
                     inline=False)
     embed.add_field(name="For muting someone",
-                    value="```plsmute <@user>```",
+                    value="```gomute <@user>```",
                     inline=False)
 
     embed.add_field(name="For unmuteing someone",
-                    value="```plsunmute <@user>```",
+                    value="```gounmute <@user>```",
                     inline=False)
     embed.add_field(name="For getting reminders",
-                    value="```plsremind <content>```",
+                    value="```goremind <content>```",
                     inline=False)
     embed.add_field(name="For searching the dictionary",
-                    value="```plsdefine <word>```",
+                    value="```godefine <word>```",
                     inline=False)
     embed.add_field(name="For translating a text",
-                    value="```plstranslate <source <dest> <content>```",
+                    value="```gotranslate <source <dest> <content>```",
                     inline=False)
     embed.add_field(name="For starting a poll",
-                    value="```plspoll <question in quotations> <entries in quotations each if they're more than a single word> (max entries = 10)```",
+                    value="```gopoll <question in quotations> <entries in quotations each if they're more than a single word> (max entries = 10)```",
                     inline=False)
     embed.add_field(name="For shipping with someone ;)",
-                    value="```plsship <@user>```",
+                    value="```goship <@user>```",
                     inline=False)
     # embed.add_field(name="For printing the whole rule list", value="```znrules```", inline=False)
     embed.add_field(name="For getting the bot status", value="```botstatus```", inline=False)
@@ -755,7 +756,13 @@ async def plsship(ctx, member : discord.Member):
 
 @bot.command()
 async def im(ctx, *, content):
-    await ctx.send('Hey, ' + content + ', im fury the bot :D, nice to meet ya!')
+    ran = random.randint(1,3):
+        if ran == 1:
+            await ctx.send('Hey, ' + content + ', im fury the bot :D, nice to meet ya!')
+        elif ran == 2:
+            await ctx.send('oh hey, ' + content + ', im a bot here! dw ill always be here to wish you!')
+        elif ran ==3:
+            await ctx.send('Yeeeeet, hey there, ' + content + ', im fury the bot, nice tomato!')
     
 
 
