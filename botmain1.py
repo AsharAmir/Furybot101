@@ -756,13 +756,13 @@ async def plsship(ctx, member : discord.Member):
 
 @bot.command()
 async def im(ctx, *, content):
-    ran = random.randint(1,3):
-        if ran == 1:
-            await ctx.send('Hey, ' + content + ', im fury the bot :D, nice to meet ya!')
-        elif ran == 2:
-            await ctx.send('oh hey, ' + content + ', im a bot here! dw ill always be here to wish you!')
-        elif ran ==3:
-            await ctx.send('Yeeeeet, hey there, ' + content + ', im fury the bot, nice tomato!')
+    ran = random.randint(1,3)
+    if ran == 1:
+        await ctx.send('Hey, ' + content + ', im fury the bot :D, nice to meet ya!')
+    elif ran == 2:
+        await ctx.send('oh hey, ' + content + ', im a bot here! dw ill always be here to wish you!')
+    elif ran ==3:
+        await ctx.send('Yeeeeet, hey there, ' + content + ', im fury the bot, nice tomato!')
     
 
 
