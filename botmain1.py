@@ -725,7 +725,7 @@ async def plshelp(ctx):
     
     
 @bot.command()
-async def plspoll(ctx, query = '', *args):
+async def gopoll(ctx, query = '', *args):
 
         var1 = len(args)
         print(var1)
