@@ -151,7 +151,11 @@ async def play(ctx, url: str):
 
 @bot.command()
 async def Hi(ctx):
-    await ctx.send('Heyyyyyy! Wasssssupppp' + ctx.author.mention + ' how ya doin!')
+    choice = random.randint(1,2)
+    if choice == 1:
+        await ctx.send('Heyyyyyy! Wasssssupppp ' + ctx.author.mention + ' how ya doin!')
+    if choice == 2:
+        await ctx.send('Yooooooo!' + ctx.author.mention + ' wassssup!!')
 
 
 @bot.command()
