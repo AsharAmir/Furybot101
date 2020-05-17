@@ -81,7 +81,7 @@ async def join(ctx):
 
 
 @bot.command(pass_context=True)
-async def leave(ctx):
+async def plsleave(ctx):
     channel = ctx.message.author.voice.channel
     voice = get(bot.voice_clients, guild=ctx.guild)
 
@@ -94,7 +94,7 @@ async def leave(ctx):
 
 
 @bot.command(pass_context=True)
-async def play(ctx, url: str):
+async def plsplay(ctx, url: str):
     song_there = os.path.isfile('song.mp3')
     try:
         if song_there:
@@ -155,7 +155,7 @@ async def Hi(ctx):
     if choice == 1:
         await ctx.send('Heyyyyyy! Wasssssupppp ' + ctx.author.mention + ' how ya doin!')
     if choice == 2:
-        await ctx.send('Yooooooo!' + ctx.author.mention + ' wassssup!!')
+        await ctx.send('Yooooooo! ' + ctx.author.mention + ' wassssup!!')
 
 
 @bot.command()
