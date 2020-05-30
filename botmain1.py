@@ -295,6 +295,7 @@ async def gocoinflip(ctx):
 async def senddm(ctx, member: discord.Member, *, content):
     channel = await member.create_dm()
     await channel.send(content)
+    await ctx.send("Your message has been sent as a DM")
 
 
 # moderation
