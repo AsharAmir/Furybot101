@@ -772,7 +772,7 @@ async def im(ctx, *, content):
 @bot.event
 async def on_message(message):
     if 'rick' in message.content:
-        await message.channel.send('HAHAHAA SOMEONE SUMMONED ME >;D')
+        message = await message.channel.send('HAHAHAA SOMEONE SUMMONED ME >;D')
         await asyncio.sleep(1)
         await message.edit(content='https://www.youtube.com/watch?v=dQw4w9WgXcQ')
         await asyncio.sleep(2)
