@@ -777,8 +777,7 @@ async def on_message(message):
         await message.edit(content='https://www.youtube.com/watch?v=dQw4w9WgXcQ')
         await asyncio.sleep(2)
         await message.channel.send('ahahaha, sorri :>')
-        
-       await bot.process_commands(message)
+   await bot.process_commands(message)
         
 
 
