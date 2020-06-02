@@ -769,7 +769,16 @@ async def im(ctx, *, content):
     elif ran ==3:
         await ctx.send('Yeeeeet, hey there, ' + content + ', im fury the bot, nice tomato!')
     
-
+@bot.event
+async def on_message(message):
+    if 'rick' in message.content:
+        await message.channel.send('HAHAHAA SOMEONE SUMMONED ME >;D')
+        await asyncio.sleep(1)
+        await message.edit(content='https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+        await asyncio.sleep(2)
+        await ctx.send('ahahaha, sorri :>')
+        await bot.process_commands(message)
+        
 
 
 bot.run(TOKEN)
