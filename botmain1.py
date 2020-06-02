@@ -778,7 +778,7 @@ async def on_message(message):
         await asyncio.sleep(2)
         await message.channel.send('ahahaha, sorri :>')
         
-        await bot.process_commands(message)
+       await bot.process_commands(message)
         
 
 
