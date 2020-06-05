@@ -780,5 +780,9 @@ async def on_message(message):
     await bot.process_commands(message)
         
 
+@bot.command()
+async def quack(ctx):
+    await ctx.send('quack')
+    
 
 bot.run(TOKEN)
