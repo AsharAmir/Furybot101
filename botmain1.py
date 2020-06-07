@@ -186,9 +186,17 @@ async def goroll(ctx):
     await ctx.send(random.choice(["1", "2", "3", "4", "5", "6"]))
 
 
+#@bot.command()
+#async def okay(ctx):
+#    await ctx.send('boomer')
+   
 @bot.command()
-async def okay(ctx):
-    await ctx.send('boomer')
+async def goping(ctx):
+    color = discord.Color(value=0x00ff00)
+    em = discord.Embed(color=color, title='Bot Latency:')
+    em.description = f"{bot.latency * 1000:.4f} ms"
+    await ctx.send(embed=em)
+
 
 
 # @bot.command()
