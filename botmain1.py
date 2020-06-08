@@ -793,8 +793,8 @@ async def quack(ctx):
     await ctx.send('quack')
 
 @bot.command()
-async def makeembed(ctx, ttitle="", ddescription=""):
-    embed = discord.Embed(title='Embed Message')
+async def makeembed(ctx, maintitle= "", ttitle="", ddescription=""):
+    embed = discord.Embed(title=maintitle)
     embed.add_field(name=ttitle, value=ddescription)
     await ctx.send(embed=embed)
 
