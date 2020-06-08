@@ -791,6 +791,12 @@ async def on_message(message):
 @bot.command()
 async def quack(ctx):
     await ctx.send('quack')
-    
+
+@bot.command()
+async def makeembed(ctx, ttitle="", ddescription=""):
+    embed = discord.Embed(title='Embed Message')
+    embed.add_field(name=ttitle, value=ddescription)
+    await ctx.send(embed=embed)
+
 
 bot.run(TOKEN)
