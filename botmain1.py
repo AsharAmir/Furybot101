@@ -798,5 +798,20 @@ async def makeembed(ctx, maintitle= "", ttitle="", ddescription=""):
     embed.add_field(name=ttitle, value=ddescription)
     await ctx.send(embed=embed)
 
+from discord.utils import get
+@bot.event
+async def on_raw_reaction_add(payload):
+    msg_id = payload.message_id
+    if msg_id == 719589699240329246: #the huge message in #rules
+        guild_id = payload.guild_id #might remove this
+        guild = bot.get_guild(623887516830793737) #the server id
+        if payload.emoji.name == '\U00002705': 
+            VALORANT = guild.get_role(719587128702402674) #the verified role id
+             
+            member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members) #fetching the member
+            await member.add_roles(VALORANT) #adding the verified role here
+            await member.send('Valorant Role Given!')
+            
+    
 
 bot.run(TOKEN)
