@@ -326,7 +326,10 @@ async def goban(ctx, member: discord.Member, *, reason="Yeeting"):
 @commands.has_permissions(manage_messages=True)
 async def goclear(ctx, amount: int):
     await ctx.channel.purge(limit=amount + 1)
-    await ctx.send(f"{amount} message/messages got deleted")
+    msg = await ctx.send(f"{amount} message/messages got deleted")
+    await asyncio.sleep(3)
+    await msg.delete()
+    
 
 
 @bot.command()
