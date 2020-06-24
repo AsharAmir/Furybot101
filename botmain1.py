@@ -186,9 +186,9 @@ async def goroll(ctx):
     await ctx.send(random.choice(["1", "2", "3", "4", "5", "6"]))
 
 
-#@bot.command()
-#async def okay(ctx):
-#    await ctx.send('boomer')
+@bot.command()
+async def okay(ctx):
+    await ctx.send('boomer')
    
 @bot.command()
 async def goping(ctx):
