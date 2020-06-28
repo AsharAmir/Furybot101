@@ -507,11 +507,11 @@ async def gohack(ctx, *, target: discord.Member = None):
 
 # weather
 @bot.command()
-async def goweather(ctx, *, loc):
+async def goweather(ctx, *, location):
     embed  = discord.Embed(discription="Weather")
-    embed.set_author(name='Requested by ' + str(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-    embed.set_image(url="https://wttr.in/{0}.png?m".format(loc))
-    embed.set_footer(text="Location: " + str(loc))
+    embed.set_author(name='Weather Report | Requested by ' + str(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+    embed.set_image(url="https://wttr.in/{0}.png?m".format(location))
+    embed.set_footer(text="Location: " + str(location))
     embed.color = random.randint(0, 0xffffff)
     await ctx.send(embed=embed)
 
