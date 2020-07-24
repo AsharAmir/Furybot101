@@ -59,7 +59,7 @@ async def plsserver(ctx):
 
 
 @bot.command(pass_context=True)
-async def join(ctx):
+async def plsjoin(ctx):
     global voice
     channel = ctx.message.author.voice.channel
     voice = get(bot.voice_clients, guild=ctx.guild)
