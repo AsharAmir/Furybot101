@@ -310,14 +310,14 @@ async def senddm(ctx, member: discord.Member, *, content):
 
 @bot.command()
 @commands.has_permissions(kick_members=True)
-async def gokick(ctx, member: discord.Member, *, reason="Yeeting"):
+async def gokick(ctx, member: discord.Member, *, reason="no reason"):
     await member.kick(reason=reason)
     await ctx.send(f"{member.mention} was kicked by {ctx.author.mention}. for [{reason}]")
 
 
 @bot.command()
 @commands.has_permissions(ban_members=True)
-async def goban(ctx, member: discord.Member, *, reason="Yeeting"):
+async def goban(ctx, member: discord.Member, *, reason="no reason"):
     await member.ban(reason=reason)
     await ctx.send(f"{member.mention} was banned by {ctx.author.mention}. for [{reason}]")
 
